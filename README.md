@@ -1,3 +1,3 @@
 ## stash-rename
 
-This is a simple script with functions commonly used by me.
+This is a set of simple scripts with functions I commonly use.
