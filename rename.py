@@ -36,7 +36,9 @@ def do_dir(directory):
             except IndexError:
                 sys.exit("Invalid Append.")
         print("{} will be renamed to {}".format(directory + a, directory + filename1))
-        os.rename(directory + a, directory + filename1)
+        raw_dir_name = r'%s' % directory + a
+        raw_new_dir_name = r'%s' % directory + filename1
+        os.rename(raw_dir_name, raw_new_dir_name)
         final_name.append(directory + filename1)
 
 if __name__ == "__main__":
