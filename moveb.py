@@ -39,7 +39,6 @@ def move_biggest(filename, directory, remove_this_string):
 
     """If second argument is specified, remove specified string from new filename"""
     if len(remove_this_string) > 0:
-        print("here1")
         if functions.match_all_after(previous_filename, remove_this_string) == 0:
             print("Substring not found.")
         else:
@@ -50,7 +49,6 @@ def move_biggest(filename, directory, remove_this_string):
     else:
         new_filename= os.path.join(directory, previous_filename + suffix) # create new full path
         print("%s will be moved to %s" % (previous_fullpath, new_filename))
-        print("here")
         os.rename(previous_fullpath, new_filename)
         
 
