@@ -2,6 +2,7 @@ import os, sys
 
 options = ("-d", "--prepend", "--append")
 
+
 def main():
     if len(sys.argv) < 4:
         sys.exit("Nothing to do.")
@@ -12,11 +13,12 @@ def main():
         sys.exit("Specified directory is not a valid directory.")
     do_dir(r"%s" % directory)
 
+
 def do_dir(directory):
     """Main function to do file operations. Pass the directory from command line arguments, 
     --append, --prepend. Does not return anything."""
     final_name = []
-    filenames_no_dirs = next(os.walk(directory))[2] # list of files, just filenames, no directories 
+    filenames_no_dirs = next(os.walk(directory))[2]  # list of files, just filenames, no directories
     for a in filenames_no_dirs:
         filename1 = a
         if options[1] in sys.argv:
@@ -41,5 +43,6 @@ def do_dir(directory):
         os.rename(raw_dir_name, raw_new_dir_name)
         final_name.append(directory + filename1)
 
+
 if __name__ == "__main__":
-    main()   
+    main()

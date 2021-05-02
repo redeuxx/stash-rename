@@ -2,6 +2,7 @@
 
 import os, sys, re, csv
 
+
 def main():
     try:
         directory = sys.argv[1]
@@ -28,13 +29,13 @@ def main():
                     num_count += 1
     print(f"Renamed {num_count} files.")
 
+
 def syntax_error():
     sys.exit('''Syntax error.
 Usage: replace.py argument1 argument2
 argument1 - Directory location of files to process.
 argument2 - Location of the file that contains the replacement database.''')
 
+
 if __name__ == "__main__":
     main()
-
-#test pycharm
