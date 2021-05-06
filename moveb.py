@@ -4,6 +4,7 @@ import functions
 import os
 import pathlib
 import sys
+import shutil
 
 
 def main():
@@ -51,10 +52,12 @@ def move_biggest(filename, directory, remove_this_string):
             new_filename = os.path.join(directory, fixed_string + suffix)  # create new full path
             print("%s will be moved to %s" % (previous_filepath, new_filename))
             os.rename(previous_filepath, new_filename)
+            shutil.rmtree(directory)
     else:
         new_filename = os.path.join(directory, previous_filename + suffix)  # create new full path
         print("%s will be moved to %s" % (previous_filepath, new_filename))
         os.rename(previous_filepath, new_filename)
+        shutil.rmtree(directory)
 
 
 def syntax(error):
