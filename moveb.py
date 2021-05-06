@@ -8,8 +8,8 @@ import sys
 
 def main():
     try:
-        input = sys.argv[1]
-        if not os.path.isdir(input):
+        user_input = sys.argv[1]
+        if not os.path.isdir(user_input):
             syntax(0)
     except IndexError:
         syntax(0)
@@ -39,7 +39,7 @@ def main():
 
 def move_biggest(filename, directory, remove_this_string):
     previous_filepath = pathlib.PurePath(filename)  # full path to file
-    previous_filename = os.fspath(pathlib.Path(previous_filepath.parts[-1]))  # convert path object to string
+    previous_filename = os.fspath(pathlib.Path(previous_filepath.parts[-2]))  # convert path object to string
     suffix = pathlib.Path(previous_filepath.parts[-1]).suffix
 
     """If second argument is specified, remove specified string from new filename"""
