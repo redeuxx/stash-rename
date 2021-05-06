@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import os, sys, re
+import os
 
 
 def list_filenames(directory):

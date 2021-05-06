@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
 
-import os, sys, functions, pathlib
+import functions
+import os
+import pathlib
+import sys
 
 
 def main():
     try:
         input = sys.argv[1]
         if not os.path.isdir(input):
-            sys.exit("Invalid directory.")
+            syntax(0)
     except IndexError:
-        sys.exit("No directory specified.")
+        syntax(0)
     try:
         if len(sys.argv[2]) > 0:
             remove_this_string = sys.argv[2]
@@ -52,6 +55,18 @@ def move_biggest(filename, directory, remove_this_string):
         new_filename = os.path.join(directory, previous_filename + suffix)  # create new full path
         print("%s will be moved to %s" % (previous_filepath, new_filename))
         os.rename(previous_filepath, new_filename)
+
+
+def syntax(error):
+    if error == 0:
+        print("Invalid syntax.")
+    print(
+        '''
+Usage: moveb.py argument1 argument2
+argument1 - Directory location
+argument2 - Remove from end of filename starting with argument2. (optional)
+        ''')
+    sys.exit()
 
 
 if __name__ == "__main__":
