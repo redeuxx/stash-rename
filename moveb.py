@@ -42,6 +42,7 @@ def move_biggest(filename, directory, remove_this_string):
     previous_filepath = pathlib.PurePath(filename)  # full path to file
     previous_filename = os.fspath(pathlib.Path(previous_filepath.parts[-2]))  # convert path object to string
     suffix = pathlib.Path(previous_filepath.parts[-1]).suffix
+    dir_to_be_deleted = os.path.join(directory, previous_filename)
 
     """If second argument is specified, remove specified string from new filename"""
     if len(remove_this_string) > 0:
@@ -52,12 +53,12 @@ def move_biggest(filename, directory, remove_this_string):
             new_filename = os.path.join(directory, fixed_string + suffix)  # create new full path
             print("%s will be moved to %s" % (previous_filepath, new_filename))
             os.rename(previous_filepath, new_filename)
-            shutil.rmtree(directory)
+            shutil.rmtree(dir_to_be_deleted)
     else:
         new_filename = os.path.join(directory, previous_filename + suffix)  # create new full path
         print("%s will be moved to %s" % (previous_filepath, new_filename))
         os.rename(previous_filepath, new_filename)
-        shutil.rmtree(directory)
+        shutil.rmtree(dir_to_be_deleted)
 
 
 def syntax(error):
