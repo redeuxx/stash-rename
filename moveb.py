@@ -4,7 +4,6 @@ import functions
 import os
 import pathlib
 import sys
-import shutil
 
 
 def main():
@@ -52,13 +51,20 @@ def move_biggest(filename, directory, remove_this_string):
             fixed_string = functions.match_all_after(previous_filename, remove_this_string)
             new_filename = os.path.join(directory, fixed_string + suffix)  # create new full path
             print("%s will be moved to %s" % (previous_filepath, new_filename))
-            os.rename(previous_filepath, new_filename)
-            shutil.rmtree(dir_to_be_deleted)
+            if functions.del_file(previous_filepath, new_filename) == 1:
+                print("Unable to move %s. File exists." % previous_filepath)
+            if functions.subs_exist(dir_to_be_deleted) < 1:
+                if functions.del_dir(dir_to_be_deleted) == 1:
+                    print("Could not delete %s" % dir_to_be_deleted)
     else:
         new_filename = os.path.join(directory, previous_filename + suffix)  # create new full path
         print("%s will be moved to %s" % (previous_filepath, new_filename))
-        os.rename(previous_filepath, new_filename)
-        shutil.rmtree(dir_to_be_deleted)
+        functions.del_file(previous_filepath, new_filename)
+        if functions.del_file(previous_filepath, new_filename) == 1:
+            print("Unable to move %s. File exists." % previous_filepath)
+        if functions.subs_exist(dir_to_be_deleted) < 1:
+            if functions.del_dir(dir_to_be_deleted) == 1:
+                print("Could not delete %s" % dir_to_be_deleted)
 
 
 def syntax(error):

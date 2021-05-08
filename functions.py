@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import shutil
 
 
 def list_filenames(directory):
@@ -19,3 +20,28 @@ def match_all_after(string_to_match, string_to_remove):
         return b.lower()
     except ValueError:
         return 0
+
+
+def subs_exist(directory):
+    subs = [dI for dI in os.listdir(directory) if os.path.isdir(os.path.join(directory, dI))]
+    if "Sample" in subs:
+        a = len(subs) - 1
+    else:
+        a = len(subs)
+    return a
+
+
+def del_dir(directory):
+    try:
+        shutil.rmtree(directory)
+        return 0
+    except FileExistsError:
+        return 1
+
+
+def del_file(previous_filepath, new_filename):
+    try:
+        os.rename(previous_filepath, new_filename)
+        return 0
+    except FileExistsError:
+        return 1
