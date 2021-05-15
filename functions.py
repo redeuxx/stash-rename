@@ -5,11 +5,15 @@ import shutil
 
 
 def list_filenames(directory):
+    """List filenames in a given directory"""
+
     filenames = [os.path.join(directory, fn) for fn in next(os.walk(directory))[2]]
     return filenames
 
 
 def list_directories(directory):
+    """List directories in a given directory"""
+
     return [f.path for f in os.scandir(directory) if f.is_dir()]
 
 
@@ -34,6 +38,8 @@ def subs_exist(directory):
 
 
 def del_dir(directory):
+    """Delete directory"""
+
     try:
         shutil.rmtree(directory)
         return 0
@@ -41,7 +47,9 @@ def del_dir(directory):
         return 1
 
 
-def del_file(previous_filepath, new_filename):
+def move_file(previous_filepath, new_filename):
+    """Move file"""
+
     try:
         os.rename(previous_filepath, new_filename)
         return 0

@@ -56,12 +56,12 @@ def move_biggest(filename, directory, remove_this_string):
     else:
         new_filename = os.path.join(directory, previous_filename + suffix)  # create new full path
         print("%s will be moved to %s" % (previous_filepath, new_filename))
-        # functions.del_file(previous_filepath, new_filename)
-    if functions.del_file(previous_filepath, new_filename) == 1:
+    if functions.move_file(previous_filepath, new_filename) == 1:
         print("Unable to move %s. File exists." % previous_filepath)
-    if functions.subs_exist(dir_to_be_deleted) < 1:
-        if functions.del_dir(dir_to_be_deleted) == 1:
-            print("Could not delete %s" % dir_to_be_deleted)
+    else:
+        if functions.subs_exist(dir_to_be_deleted) < 1:
+            if functions.del_dir(dir_to_be_deleted) == 1:
+                print("Could not delete %s" % dir_to_be_deleted)
 
 
 def syntax(error):
