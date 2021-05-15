@@ -23,6 +23,8 @@ def match_all_after(string_to_match, string_to_remove):
 
 
 def subs_exist(directory):
+    """Returns number of subdirectories"""
+
     subs = [dI for dI in os.listdir(directory) if os.path.isdir(os.path.join(directory, dI))]
     if "Sample" in subs:
         a = len(subs) - 1

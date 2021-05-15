@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 
-import os, sys, re, csv
+import csv
+import os
+import re
+import sys
 
 
 def main():
