@@ -134,3 +134,4 @@ test.py
 /.idea/inspectionProfiles/profiles_settings.xml
 /.idea/stash-rename.iml
 /.idea/vcs.xml
+/db/exempt.test.txt

@@ -30,10 +30,12 @@ def subs_exist(directory):
     """Returns number of subdirectories"""
 
     subs = [dI for dI in os.listdir(directory) if os.path.isdir(os.path.join(directory, dI))]
-    if "Sample" in subs:
-        a = len(subs) - 1
-    else:
-        a = len(subs)
+    a = len(subs)
+    file = open('db/exempt.txt', 'r')
+    for b in file:
+        s = b.rstrip('\n')
+        if s in subs:
+            a = a - 1
     return a
 
 
