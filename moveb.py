@@ -42,26 +42,28 @@ def move_biggest(filename, directory, remove_this_string):
     previous_filename = os.fspath(pathlib.Path(previous_filepath.parts[-2]))  # convert path object to string
     suffix = pathlib.Path(previous_filepath.parts[-1]).suffix
     dir_to_be_deleted = os.path.join(directory, previous_filename)
+    color_start = '\033[91m'
+    color_end = '\033[0m'
 
     """If second argument is specified, remove specified string from new filename"""
     if len(remove_this_string) > 0:
         if functions.match_all_after(previous_filename, remove_this_string) == 0:
             print("Substring not found.")
             new_filename = os.path.join(directory, previous_filename + suffix)  # create new full path
-            print("%s WILL be moved to %s" % (previous_filepath, new_filename + suffix))
+            print("%s -> %s" % (previous_filepath, new_filename + suffix))
         else:
             fixed_string = functions.match_all_after(previous_filename, remove_this_string)
             new_filename = os.path.join(directory, fixed_string + suffix)  # create new full path
-            print("%s will be moved to %s" % (previous_filepath, new_filename))
+            print("%s -> to %s" % (previous_filepath, new_filename))
     else:
         new_filename = os.path.join(directory, previous_filename + suffix)  # create new full path
-        print("%s will be moved to %s" % (previous_filepath, new_filename))
+        print("%s -> to %s" % (previous_filepath, new_filename))
     if functions.move_file(previous_filepath, new_filename) == 1:
-        print("Unable to move %s. File exists." % previous_filepath)
+        print("%sUnable to move %s. File exists.%s" % (color_start, previous_filename + suffix, color_end))
     else:
         if functions.subs_exist(dir_to_be_deleted) < 1:
             if functions.del_dir(dir_to_be_deleted) == 1:
-                print("Could not delete %s" % dir_to_be_deleted)
+                print("%sCould not delete %s%s" % (color_start, dir_to_be_deleted, color_end))
 
 
 def syntax(error):
