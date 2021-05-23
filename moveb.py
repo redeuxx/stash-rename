@@ -2,11 +2,12 @@
 
 import functions
 import os
-import pathlib
 import sys
 
 
 def main():
+    color_start = '\033[91m'
+    color_end = '\033[0m'
     try:
         user_input = sys.argv[1]
         if not os.path.isdir(user_input):
@@ -34,36 +35,14 @@ def main():
         if max_size == 0:
             print("All files were 0 in size or there were no files in %s" % (p))
         else:
-            move_biggest(os.path.abspath(max_filename), directory, remove_this_string)
-
-
-def move_biggest(filename, directory, remove_this_string):
-    previous_filepath = pathlib.PurePath(filename)  # full path to file
-    previous_filename = os.fspath(pathlib.Path(previous_filepath.parts[-2]))  # convert path object to string
-    suffix = pathlib.Path(previous_filepath.parts[-1]).suffix
-    dir_to_be_deleted = os.path.join(directory, previous_filename)
-    color_start = '\033[91m'
-    color_end = '\033[0m'
-
-    """If second argument is specified, remove specified string from new filename"""
-    if len(remove_this_string) > 0:
-        if functions.match_all_after(previous_filename, remove_this_string) == 0:
-            print("Substring not found.")
-            new_filename = os.path.join(directory, previous_filename + suffix)  # create new full path
-            print("%s -> %s" % (previous_filepath, new_filename + suffix))
-        else:
-            fixed_string = functions.match_all_after(previous_filename, remove_this_string)
-            new_filename = os.path.join(directory, fixed_string + suffix)  # create new full path
-            print("%s -> to %s" % (previous_filepath, new_filename))
-    else:
-        new_filename = os.path.join(directory, previous_filename + suffix)  # create new full path
-        print("%s -> to %s" % (previous_filepath, new_filename))
-    if functions.move_file(previous_filepath, new_filename) == 1:
-        print("%sUnable to move %s. File exists.%s" % (color_start, previous_filename + suffix, color_end))
-    else:
-        if functions.subs_exist(dir_to_be_deleted) < 1:
-            if functions.del_dir(dir_to_be_deleted) == 1:
-                print("%sCould not delete %s%s" % (color_start, dir_to_be_deleted, color_end))
+            returned = (functions.move_biggest(os.path.abspath(max_filename), directory, remove_this_string))
+            if functions.move_file(max_filename, returned[0]) == 1:
+                print("%sUnable to move %s. File exists.%s" % (color_start, returned[0].lower() + returned[2], color_end
+                                                               ))
+            else:
+                if functions.subs_exist(returned[1]) < 1:
+                    if functions.del_dir(returned[1]) == 1:
+                        print("%sCould not delete %s%s" % (color_start, returned[1], color_end))
 
 
 def syntax(error):
