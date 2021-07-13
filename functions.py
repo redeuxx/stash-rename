@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import os
 import shutil
 import csv
@@ -11,8 +9,7 @@ import pathlib
 def list_filenames(directory):
     """List filenames in a given directory"""
 
-    filenames = [os.path.join(directory, fn) for fn in next(os.walk(directory))[2]]
-    return filenames
+    return [os.path.join(directory, fn) for fn in next(os.walk(directory))[2]]
 
 
 def list_directories(directory):
@@ -37,7 +34,7 @@ def subs_exist(directory):
 
     subs = [dI for dI in os.listdir(directory) if os.path.isdir(os.path.join(directory, dI))]
     a = len(subs)
-    file = open('db/exempt.txt', 'r')
+    file = open(os.path.abspath('db/exempt.txt'), 'r')
     for b in file:
         s = b.rstrip('\n')
         if s in subs:
@@ -66,7 +63,7 @@ def move_file(previous_filepath, new_filename):
 
 
 def replace(max_filename, directory):
-    """replace strings stored in db/replace.csv"""
+    """Replace strings stored in db/replace.csv"""
 
     database_file = os.path.abspath('db/replace.csv')
     new_name = max_filename
@@ -79,7 +76,6 @@ def replace(max_filename, directory):
             if re.match(row["abbreviation"], max_filename):
                 w = re.match(row["abbreviation"], max_filename)
                 new_name = directory + "/" + max_filename.replace(w.group(), row['full_name'])
-                print(f"{max_filename} will renamed to {new_name}")
                 num_count += 1
     return new_name
 
@@ -92,7 +88,7 @@ def move_biggest(filename, directory, remove_this_string):
     suffix = pathlib.Path(previous_filepath.parts[-1]).suffix
     dir_to_be_deleted = os.path.join(directory, previous_filename)
 
-    """If second argument is specified, remove specified string from new filename"""
+    # If third argument is specified, remove specified string from new filename
     if len(remove_this_string) > 0:
         if match_all_after(previous_filename, remove_this_string) == 0:
             new_filename = replace(os.path.join(directory, previous_filename.lower() + suffix),
